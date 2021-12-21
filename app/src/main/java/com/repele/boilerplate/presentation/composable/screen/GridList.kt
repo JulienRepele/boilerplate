@@ -31,11 +31,6 @@ fun UsersGridScreen(
 ) {
     val users by usersViewModel.users.collectAsState()
 
-    remember {
-        usersViewModel.getUsers()
-        true
-    }
-
     Box(
         modifier = Modifier.fillMaxSize(),
     ) {

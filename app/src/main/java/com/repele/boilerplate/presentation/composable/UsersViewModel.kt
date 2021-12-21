@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -18,9 +19,15 @@ class UsersViewModel @Inject constructor(
     private val _users = MutableStateFlow(emptyList<User>())
     val users: StateFlow<List<User>> get() = _users
 
-    fun getUsers() {
+    init {
+        getUsers()
+    }
+
+    private fun getUsers() {
         viewModelScope.launch {
-            _users.value = getUserListUseCase()
+            _users.update {
+                getUserListUseCase()
+            }
         }
     }
 }
